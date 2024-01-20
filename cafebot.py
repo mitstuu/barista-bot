@@ -33,18 +33,17 @@ client = commands.Bot(command_prefix='b!', intents=intents)
 # Listen for the on_member_join event
 @client.event
 async def on_member_join(member):
-     # Get the account age of the member in minutes
-     age_minutes = (datetime.now(timezone.utc) - member.created_at).total_seconds() // 60
-     gchannel = client.get_channel(general_CHANNEL_ID)
-     role = member.guild.get_role(ROLE_ID)
-     
-     # If the account age is less than 15 minutes, kick the member and display a message in the specified channel
-     if age_minutes < 15:
-        await member.kick(reason='Account age less than 15 minutes')
-        bchannel = client.get_channel(bonk_CHANNEL_ID)
-        await bchannel.send(f'<@{member.id}> has been kicked for having an account less than 15 minutes old.')
-        
-     await gchannel.send(f'Welcome {member.mention} to the server! {role.mention}s assemble!')
+    # Get the account age of the member in minutes
+    age_minutes = (datetime.now(timezone.utc) - member.created_at).total_seconds() // 60
+    gchannel = client.get_channel(general_CHANNEL_ID)
+    role = member.guild.get_role(ROLE_ID)
+    
+    if isinstance(gchannel, discord.TextChannel):  # Check if gchannel is a TextChannel
+        if age_minutes < 15:
+            await member.kick(reason='Account age less than 15 minutes')
+            await gchannel.send(f'<@{member.id}> has been kicked for having an account less than 15 minutes old.')
+        else:
+            await gchannel.send(f'Welcome {member.mention} to the server! {role.mention}s assemble!')
 
 #Welcome message command
 

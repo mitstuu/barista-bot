@@ -12,7 +12,7 @@ general_CHANNEL_ID = 934288549266739224
 ROLE_ID = 934288548474007576
 
 # Replace TOKEN with your bot's token
-TOKEN = 'MTA4Mjc3Njg0MTk1MTExNzM2Mw.GTth6X.S64yOpmSADKkt-IbisKn8vaXObkmM79GkYomls'
+TOKEN = os.environ['BARISTA_BOT_TOKEN']
 
 # Create a new Discord client instance
 #intents = discord.Intents.default()

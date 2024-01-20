@@ -1,6 +1,11 @@
 import discord
 from discord.ext import commands
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 from datetime import datetime, timezone, timedelta
 
 # Replace CHANNEL_ID with the ID of the channel where you want to display the kick message

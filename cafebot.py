@@ -40,7 +40,7 @@ async def server_info(ctx):
     server_name = server.name
     server_picture = server.icon.url if server.icon else None
 
-    embed = discord.Embed(title=server_name, description=server_description)
+    embed = discord.Embed(title=server_name, description=server_description, color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
     if server_picture:
         embed.set_thumbnail(url=server_picture)
     embed.add_field(name="Members", value=number_of_people)

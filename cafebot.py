@@ -38,10 +38,11 @@ async def server_info(ctx):
     server_description = server.description
     number_of_people = server.member_count
     server_name = server.name
-    server_picture = server.icon_url
+    server_picture = server.icon.url if server.icon else None
 
     embed = discord.Embed(title=server_name, description=server_description)
-    embed.set_thumbnail(url=server_picture)
+    if server_picture:
+        embed.set_thumbnail(url=server_picture)
     embed.add_field(name="Members", value=number_of_people)
     embed.add_field(name="Text Channels", value=number_of_text_channels)
     embed.add_field(name="Voice Channels", value=number_of_voice_channels)

@@ -115,7 +115,7 @@ async def on_command_error(ctx, error):
 
 # Define the help command
 @client.command()
-async def help(ctx):
+async def commandhelp(ctx):
     embed = discord.Embed(title="Help", description="List of available commands:", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
     embed.add_field(name="b!serverinfo", value="Displays information about the server")
     embed.add_field(name="b!userinfo", value="Displays information about a user")

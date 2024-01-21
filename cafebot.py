@@ -9,6 +9,13 @@ TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 from datetime import datetime, timezone, timedelta
 from typing import Union
 
+from discord import Game
+from discord.ext import commands
+
+
+
+# Rest of your code...
+
 # Replace CHANNEL_ID with the ID of the channel where you want to display the kick message
 bonk_CHANNEL_ID = 934288549946216541
 general_CHANNEL_ID = 934288549266739224
@@ -26,6 +33,9 @@ TOKEN = os.environ['BARISTA_BOT_TOKEN']
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='b!', intents=intents)
 
+@client.event
+async def on_ready():
+    await client.change_presence(activity=Game(name="with the API"))
 
 # Set the cooldown duration to 30 minutes (1800 seconds)
 #cooldown_duration = commands.Cooldown(rate=1, per=1800, type=commands.BucketType.member)

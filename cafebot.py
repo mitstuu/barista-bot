@@ -47,6 +47,7 @@ async def server_info(ctx):
     embed.add_field(name="Text Channels", value=number_of_text_channels)
     embed.add_field(name="Voice Channels", value=number_of_voice_channels)
 
+    embed.set_footer(text="Timestamp")
     await ctx.send(embed=embed)
 
 

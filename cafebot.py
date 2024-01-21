@@ -29,6 +29,25 @@ client = commands.Bot(command_prefix='b!', intents=intents)
 # Set the cooldown duration to 30 minutes (1800 seconds)
 #cooldown_duration = commands.Cooldown(rate=1, per=1800, type=commands.BucketType.member)
 
+# Define the serverinfo command
+@client.command(name='serverinfo')
+async def server_info(ctx):
+    server = ctx.guild
+    number_of_text_channels = len(server.text_channels)
+    number_of_voice_channels = len(server.voice_channels)
+    server_description = server.description
+    number_of_people = server.member_count
+    server_name = server.name
+    server_picture = server.icon_url
+
+    embed = discord.Embed(title=server_name, description=server_description)
+    embed.set_thumbnail(url=server_picture)
+    embed.add_field(name="Members", value=number_of_people)
+    embed.add_field(name="Text Channels", value=number_of_text_channels)
+    embed.add_field(name="Voice Channels", value=number_of_voice_channels)
+
+    await ctx.send(embed=embed)
+
 
 # Listen for the on_member_join event
 @client.event

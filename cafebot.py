@@ -113,5 +113,16 @@ async def on_command_error(ctx, error):
         seconds = remaining % 60
         await ctx.send(f"This command is on cooldown. Please try again in {minutes} minutes and {seconds} seconds.")
 
+# Define the help command
+@client.command()
+async def help(ctx):
+    embed = discord.Embed(title="Help", description="List of available commands:", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
+    embed.add_field(name="b!serverinfo", value="Displays information about the server")
+    embed.add_field(name="b!userinfo", value="Displays information about a user")
+    embed.add_field(name="b!ping", value="Displays the bot's current latency")
+    embed.add_field(name="b!revivechat", value="Asks the Welcomers to revive the chat")
+    embed.set_footer(text="Sent:")
+    await ctx.send(embed=embed)
+
 # Start the bot
 client.run(TOKEN)

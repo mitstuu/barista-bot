@@ -7,6 +7,7 @@ load_dotenv()
 
 TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 from datetime import datetime, timezone, timedelta
+from typing import Union
 
 # Replace CHANNEL_ID with the ID of the channel where you want to display the kick message
 bonk_CHANNEL_ID = 934288549946216541
@@ -47,9 +48,24 @@ async def server_info(ctx):
     embed.add_field(name="Text Channels", value=number_of_text_channels)
     embed.add_field(name="Voice Channels", value=number_of_voice_channels)
 
-    embed.set_footer(text="Timestamp")
+    embed.set_footer(text="Sent:")
     await ctx.send(embed=embed)
 
+# Define the userinfo command
+@client.command(name='userinfo')
+async def user_info(ctx, target: Union[discord.Member, None] = None):
+    target = target or ctx.author
+    user_roles = [role for role in target.roles]
+    embed = discord.Embed(title="User information", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
+    embed.set_thumbnail(url=target.avatar)
+    embed.set_footer(text="Sent:")
+    embed.add_field(name="ID:", value=target.id, inline=False)
+    embed.add_field(name="Name:", value=target.display_name, inline=False)
+    embed.add_field(name="Created at:", value=target.created_at.strftime("%d/%m/%Y %H:%M:%S"), inline=False)
+    if target.joined_at is not None:
+        embed.add_field(name="Joined at:", value=target.joined_at.strftime("%d/%m/%Y %H:%M:%S"), inline=False)
+    embed.add_field(name=f"Roles ({len(user_roles)})", value=" ".join([role.mention for role in user_roles]), inline=False)
+    await ctx.send(embed=embed)
 
 # Listen for the on_member_join event
 @client.event

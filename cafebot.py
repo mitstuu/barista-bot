@@ -5,6 +5,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Create a new Discord client instance
+
+intents = discord.Intents.all()
+client = commands.Bot(command_prefix='b!', intents=intents)
+
 TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 from datetime import datetime, timezone, timedelta
 from typing import Union
@@ -12,13 +17,30 @@ from typing import Union
 from discord import Game
 from discord.ext import commands
 
-
-
-# Rest of your code...
+@client.event
+async def on_ready_event():
+    await client.change_presence(activity=Game(name="with the API"))
+    await client.load_extension('user_commands')
+    # await client.load_extension('admin_commands')
+    # await client.load_extension('mod_commands')
+    # await client.load_extension('fun_commands')
+    # await client.load_extension('music_commands')
+    # await client.load_extension('economy_commands')
+    # await client.load_extension('games_commands')
+    # await client.load_extension('help_commands')
+    # await client.load_extension('error_handler')
 
 # Replace CHANNEL_ID with the ID of the channel where you want to display the kick message
+
+ids: dict[str, int] = {
+    'bonk_channel'      :   934288549946216541,
+    'general_channel'   :   934288549266739224,
+    'role'              :   934288548474007576,
+}
 bonk_CHANNEL_ID = 934288549946216541
 general_CHANNEL_ID = 934288549266739224
+
+
 
 #@Welcomers role ID
 
@@ -27,11 +49,6 @@ ROLE_ID = 934288548474007576
 # Replace TOKEN with your bot's token
 TOKEN = os.environ['BARISTA_BOT_TOKEN']
 
-# Create a new Discord client instance
-#intents = discord.Intents.default()
-#intents.members = True
-intents = discord.Intents.all()
-client = commands.Bot(command_prefix='b!', intents=intents)
 
 @client.event
 async def on_ready():
@@ -39,6 +56,8 @@ async def on_ready():
 
 # Set the cooldown duration to 30 minutes (1800 seconds)
 #cooldown_duration = commands.Cooldown(rate=1, per=1800, type=commands.BucketType.member)
+
+#   Info commands
 
 # Define the serverinfo command
 @client.command(name='serverinfo')
@@ -68,7 +87,7 @@ async def user_info(ctx, target: Union[discord.Member, None] = None):
     user_roles = [role for role in target.roles]
     embed = discord.Embed(title="User information", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
     embed.set_thumbnail(url=target.avatar)
-    embed.set_footer(text="Sent:")
+    embed.set_footer(text="Sent")
     embed.add_field(name="ID:", value=target.id, inline=False)
     embed.add_field(name="Name:", value=target.display_name, inline=False)
     embed.add_field(name="Created at:", value=target.created_at.strftime("%d/%m/%Y %H:%M:%S"), inline=False)
@@ -76,6 +95,8 @@ async def user_info(ctx, target: Union[discord.Member, None] = None):
         embed.add_field(name="Joined at:", value=target.joined_at.strftime("%d/%m/%Y %H:%M:%S"), inline=False)
     embed.add_field(name=f"Roles ({len(user_roles)})", value=" ".join([role.mention for role in user_roles]), inline=False)
     await ctx.send(embed=embed)
+
+    #  Listeners
 
 # Listen for the on_member_join event
 @client.event
@@ -92,31 +113,23 @@ async def on_member_join(member):
         else:
             await gchannel.send(f'Welcome {member.mention} to the server! {role.mention}s assemble!')
 
-#Welcome message command
-
-# @client.event
-# async def on_member_join(member):
-#     channel = client.get_channel(general_CHANNEL_ID)
-#     role = member.guild.get_role(ROLE_ID)
-#     await channel.send(f'Welcome {member.mention} to the server! {role.mention}s assemble!')
 
 # Define the ping command
-@client.command()
-async def ping(ctx):
-    await ctx.send(f'Pong! Latency: `{round(client.latency * 1000)}ms`')
+# @client.command()
+# async def ping(ctx):
+#     await ctx.send(f'Pong! Latency: `{round(client.latency * 1000)}ms`')
 
 
+# Define the revivechat command
 @client.command()
-@commands.cooldown(1, 1800, commands.BucketType.member)  # Apply the cooldown to the command
+@commands.cooldown(1, 1800, commands.BucketType.guild)  # Apply the cooldown to the command
 async def revivechat(ctx):
-    channel = ctx.channel
     role = ctx.guild.get_role(934288548474007577)
-    member = ctx.author
-    await channel.send(f'{member.mention} would like to revive this chat. {role.mention}s assemble!')
+    await ctx.send(f'{ctx.author.mention} would like to revive this chat. {role.mention}s assemble!')
 
 # Error handling for the revivechat command cooldown
-@commands.Cog.listener()
-async def on_command_error(ctx, error):
+@revivechat.error
+async def revivechat_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
         remaining = error.retry_after
         minutes = remaining // 60

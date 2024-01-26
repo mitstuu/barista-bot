@@ -21,7 +21,7 @@ TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 TOKEN = os.environ['BARISTA_BOT_TOKEN']
 
 @client.event
-async def on_ready_event():
+async def on_ready():
     await client.change_presence(activity=Game(name="with the API"))
 
 # bonk_CHANNEL_ID = 934288549946216541

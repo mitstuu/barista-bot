@@ -3,6 +3,7 @@ from discord.ext import commands
 from datetime import datetime, timezone, timedelta
 from typing import Union
 from discord import Game
+import math
 
 class UserCommands(commands.Cog):
 
@@ -78,9 +79,9 @@ class UserCommands(commands.Cog):
         minutes = 0
         seconds = 0
         if isinstance(error, commands.CommandOnCooldown):
-            remaining = error.retry_after
-            minutes = remaining // 60
-            seconds = remaining % 60
+            remaining: float = error.retry_after
+            minutes: int = math.floor(remaining // 60) 
+            seconds: int = math.floor(remaining % 60)
         await ctx.send(f"This command is on cooldown. Please try again in {minutes} minutes and {seconds} seconds.")
 
     # Define the help command

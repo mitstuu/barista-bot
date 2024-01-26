@@ -16,5 +16,5 @@ class UserCommands(commands.Cog):
         await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
 
 
-def setup(client):
-    client.add_cog(UserCommands(client))
+async def setup(client):
+    await client.add_cog(UserCommands(client))

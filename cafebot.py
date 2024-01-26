@@ -1,3 +1,4 @@
+import asyncio
 import discord
 from discord.ext import commands
 import os
@@ -147,10 +148,15 @@ async def commandhelp(ctx):
     embed.set_footer(text="Sent:")
     await ctx.send(embed=embed)
 
-async def load_cogs():
+
+async def main():
     for cog in cogs:
         await client.load_extension(cog)
 
+    await client.start(TOKEN)
+
+# Run the main function
+asyncio.run(main())
+
 if __name__ == '__main__':
-    client.loop.run_until_complete(load_cogs())
     client.run(TOKEN)

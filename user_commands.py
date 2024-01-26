@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 from typing import Union
 from discord import Game
 import math
-from discord.ext import menus
+#from discord.ext import menus
 
 class UserCommands(commands.Cog):
 

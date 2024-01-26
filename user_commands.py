@@ -73,7 +73,7 @@ class UserCommands(commands.Cog):
         role = ctx.guild.get_role(self.ids['chat_reviver'])
         await ctx.send(f'{ctx.author.mention} would like to revive this chat. {role.mention}s assemble!')
 
-    @commands.Cog.listener()
+    @revivechat.error
     async def revivechat_error(self, ctx, error):
         minutes = 0
         seconds = 0

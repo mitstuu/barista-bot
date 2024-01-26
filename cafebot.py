@@ -14,8 +14,7 @@ load_dotenv()
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='b!', intents=intents)
 
-cogs = ['user_commands', 'admin_commands', 'mod_commands', 'fun_commands', 'music_commands', 'economy_commands', 'games_commands', 'help_commands', 'error_handler']
-
+cogs = ['user_commands']
 TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 
 @client.event

@@ -85,41 +85,41 @@ class UserCommands(commands.Cog):
             seconds: int = math.floor(remaining % 60)
         await ctx.send(f"`b!revivechat` is in cooldown mode. Please try again in {minutes} minutes and {seconds} seconds.")
 
-    # # Define the help command
-    # @commands.command()
-    # async def commandhelp(self, ctx):
-    #     embed = discord.Embed(title="Help", description="List of available commands:", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
-    #     embed.add_field(name="b!serverinfo", value="Displays information about the server")
-    #     embed.add_field(name="b!userinfo", value="Displays information about a user")
-    #     embed.add_field(name="b!ping", value="Displays the bot's current latency")
-    #     embed.add_field(name="b!revivechat", value="Asks the Welcomers to revive the chat")
-    #     embed.set_footer(text="Sent:")
-    #     await ctx.send(embed=embed)
+    # Define the help command
+    @commands.command()
+    async def commandhelp(self, ctx):
+        embed = discord.Embed(title="Help", description="List of available commands:", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
+        embed.add_field(name="b!serverinfo", value="Displays information about the server")
+        embed.add_field(name="b!userinfo", value="Displays information about a user")
+        embed.add_field(name="b!ping", value="Displays the bot's current latency")
+        embed.add_field(name="b!revivechat", value="Asks the Welcomers to revive the chat")
+        embed.set_footer(text="Sent:")
+        await ctx.send(embed=embed)
 
 
 
-class HelpMenu(menus.ListPageSource):
-    def __init__(self, data):
-        super().__init__(data, per_page=5)  # Change this to control how many items per page
+# class HelpMenu(menus.ListPageSource):
+#     def __init__(self, data):
+#         super().__init__(data, per_page=5)  # Change this to control how many items per page
 
-    async def format_page(self, menu, entries):
-        offset = menu.current_page * self.per_page
-        embed = discord.Embed(title="Help", description="List of available commands:")
-        for i, command in enumerate(entries, start=offset):
-            embed.add_field(name=command[0], value=command[1], inline=False)
-        return embed
+#     async def format_page(self, menu, entries):
+#         offset = menu.current_page * self.per_page
+#         embed = discord.Embed(title="Help", description="List of available commands:")
+#         for i, command in enumerate(entries, start=offset):
+#             embed.add_field(name=command[0], value=command[1], inline=False)
+#         return embed
 
-@commands.command()
-async def commandhelp(self, ctx):
-    data = [
-        ("b!serverinfo", "Displays information about the server"),
-        ("b!userinfo", "Displays information about a user"),
-        ("b!ping", "Displays the bot's current latency"),
-        ("b!revivechat", "Asks the Welcomers to revive the chat"),
-        # Add more commands here
-    ]
-    pages = menus.MenuPages(source=HelpMenu(data), clear_reactions_after=True)
-    await pages.start(ctx)
+# @commands.command()
+# async def commandhelp(self, ctx):
+#     data = [
+#         ("b!serverinfo", "Displays information about the server"),
+#         ("b!userinfo", "Displays information about a user"),
+#         ("b!ping", "Displays the bot's current latency"),
+#         ("b!revivechat", "Asks the Welcomers to revive the chat"),
+#         # Add more commands here
+#     ]
+#     pages = menus.MenuPages(source=HelpMenu(data), clear_reactions_after=True)
+#     await pages.start(ctx)
 
 
 

@@ -147,5 +147,8 @@ async def commandhelp(ctx):
     embed.set_footer(text="Sent:")
     await ctx.send(embed=embed)
 
+async def setup():
+    await client.load_extension('user_commands')
+    
 # Start the bot
 client.run(TOKEN)

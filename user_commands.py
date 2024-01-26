@@ -82,7 +82,7 @@ class UserCommands(commands.Cog):
             remaining: float = error.retry_after
             minutes: int = math.floor(remaining // 60) 
             seconds: int = math.floor(remaining % 60)
-        await ctx.send(f"This command is on cooldown. Please try again in {minutes} minutes and {seconds} seconds.")
+        await ctx.send(f"`b!revivechat` is in cooldown mode. Please try again in {minutes} minutes and {seconds} seconds.")
 
     # Define the help command
     @commands.command()

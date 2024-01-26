@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 class UserCommands(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -15,5 +16,5 @@ class UserCommands(commands.Cog):
         await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
 
 
-def setup(bot):
-    bot.add_cog(UserCommands(bot))
+def setup(client):
+    client.add_cog(UserCommands(client))

@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
+from datetime import datetime, timezone, timedelta
+from typing import Union
+from discord import Game
 
 load_dotenv()
 
@@ -10,17 +13,14 @@ load_dotenv()
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='b!', intents=intents)
 
-TOKEN = os.getenv('BARISTA_BOT_TOKEN')
-from datetime import datetime, timezone, timedelta
-from typing import Union
+cogs = ['user_commands', 'admin_commands', 'mod_commands', 'fun_commands', 'music_commands', 'economy_commands', 'games_commands', 'help_commands', 'error_handler']
 
-from discord import Game
-from discord.ext import commands
+TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 
 @client.event
 async def on_ready_event():
     await client.change_presence(activity=Game(name="with the API"))
-    await client.load_extension('user_commands')
+    #await client.load_extension('user_commands')
     # await client.load_extension('admin_commands')
     # await client.load_extension('mod_commands')
     # await client.load_extension('fun_commands')
@@ -147,8 +147,10 @@ async def commandhelp(ctx):
     embed.set_footer(text="Sent:")
     await ctx.send(embed=embed)
 
-async def setup():
-    await client.load_extension('user_commands')
-    
-# Start the bot
-client.run(TOKEN)
+async def load_cogs():
+    for cog in cogs:
+        await client.load_extension(cog)
+
+if __name__ == '__main__':
+    client.loop.run_until_complete(load_cogs())
+    client.run(TOKEN)

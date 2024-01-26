@@ -75,11 +75,13 @@ class UserCommands(commands.Cog):
 
     @commands.Cog.listener()
     async def revivechat_error(self, ctx, error):
+        minutes = 0
+        seconds = 0
         if isinstance(error, commands.CommandOnCooldown):
             remaining = error.retry_after
             minutes = remaining // 60
             seconds = remaining % 60
-            await ctx.send(f"This command is on cooldown. Please try again in {minutes} minutes and {seconds} seconds.")
+        await ctx.send(f"This command is on cooldown. Please try again in {minutes} minutes and {seconds} seconds.")
 
     # Define the help command
     @commands.command()

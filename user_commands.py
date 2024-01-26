@@ -97,16 +97,16 @@ class UserCommands(commands.Cog):
     #     await ctx.send(embed=embed)
 
 
+
 class HelpMenu(menus.ListPageSource):
     def __init__(self, data):
         super().__init__(data, per_page=5)  # Change this to control how many items per page
 
     async def format_page(self, menu, entries):
         offset = menu.current_page * self.per_page
-        embed = discord.Embed(title="Help", description="List of available commands:", color=discord.Color.from_rgb(126, 169, 107), timestamp=datetime.utcnow())
-        for i, value in enumerate(entries, start=offset):
-            embed.add_field(name=value[0], value=value[1])
-        embed.set_footer(text=f"Page {menu.current_page + 1}/{self.get_max_pages()}")
+        embed = discord.Embed(title="Help", description="List of available commands:")
+        for i, command in enumerate(entries, start=offset):
+            embed.add_field(name=command[0], value=command[1], inline=False)
         return embed
 
 @commands.command()

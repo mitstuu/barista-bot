@@ -65,5 +65,5 @@ class Moderation(commands.Cog):
         deleted = await ctx.channel.purge(limit=amount_to_check, check=is_user)
         await ctx.send(f'{len(deleted)} messages have been deleted.')
 
-def setup(bot):
-    bot.add_cog(Moderation(bot))
+async def setup(client):
+    await client.add_cog(Moderation(client))

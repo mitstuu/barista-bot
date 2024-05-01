@@ -37,14 +37,14 @@ class Moderation(commands.Cog):
         await ctx.send(f'{member.mention} has been muted for {duration} minutes.')
 
     @commands.command()
-    @commands.has_permissions(unmute_members=True)
+    @commands.has_permissions(mute_members=True)
     async def unmute(self, ctx, member: discord.Member, reason=None):
         """Unmutes a member."""
         await member.timeout(None, reason=reason)
         await ctx.send(f'{member.mention} has been unmuted.')
 
     @commands.command()
-    @commands.has_permissions(unban=True)
+    @commands.has_permissions(ban=True)
     async def unban(self, ctx, member: discord.Member, *, reason=None):
         """Unbans a member from the server."""
         await member.unban(reason=reason)

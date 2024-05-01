@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import datetime
 
-from numpy import delete
+# from numpy import delete
 
 class Moderation(commands.Cog):
     def __init__(self, bot):

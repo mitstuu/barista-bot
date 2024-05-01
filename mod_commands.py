@@ -9,6 +9,12 @@ class Moderation(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.has_permissions(mute_members=True)
+    async def warn(self, ctx, member: discord.Member, *, reason=None):
+        """Warns a member."""
+        await ctx.send(f'{member.mention} has been warned for {reason}.')
+
+    @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
         """Kicks a member from the server."""

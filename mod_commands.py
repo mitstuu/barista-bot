@@ -44,7 +44,7 @@ class Moderation(commands.Cog):
         await ctx.send(f'{member.mention} has been unmuted.')
 
     @commands.command()
-    @commands.has_permissions(ban=True)
+    @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, member: discord.Member, *, reason=None):
         """Unbans a member from the server."""
         await member.unban(reason=reason)

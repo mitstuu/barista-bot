@@ -52,7 +52,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount_to_check=1000, user=None, amount_to_delete=0):
+    async def purge(self, ctx, amount_to_delete=0, user=None, amount_to_check=1000):
         """Deletes a specified amount of messages."""
         deleted_from_user = 0
         def is_user(m):

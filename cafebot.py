@@ -13,7 +13,7 @@ load_dotenv()
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='b!', intents=intents)
 # Define the cogs to be loaded
-cogs: list[str] = ['user_commands']
+cogs: list[str] = ['user_commands', 'mod_commands']
 
 TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 

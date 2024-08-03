@@ -1,5 +1,7 @@
 import asyncio
+from re import T
 import discord
+from discord.abc import PrivateChannel
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
@@ -27,27 +29,29 @@ async def on_ready():
 # bonk_CHANNEL_ID = 934288549946216541
 # general_CHANNEL_ID = 934288549266739224
 ids: dict[str, int] = {
-        'bonk_channel'      :   934288549946216541,
-        'general_channel'   :   934288549266739224,
-        'chat_reviver'      :   934288548474007577,
-        }
+    'bonk_channel': 934288549946216541,
+    'general_channel': 934288549266739224,
+    'chat_reviver': 934288548474007577,
+    'modlogs_channel': 937500768657887252,
+}
 
-
-#@Welcomers role ID
+# @Welcomers role ID
 ROLE_ID = 934288548474007576
+
 # Listen for the on_member_join event
 @client.event
 async def on_member_join(member):
-    # Get the account age of the member in minutes
     age_minutes = (datetime.now(timezone.utc) - member.created_at).total_seconds() // 60
     gchannel = client.get_channel(ids['general_channel'])
+    kick_channel = client.get_channel(ids['modlogs_channel'])
     role = member.guild.get_role(ROLE_ID)
-    
-    if isinstance(gchannel, discord.TextChannel):  # Check if gchannel is a TextChannel
-        if age_minutes < 15:
-            await member.kick(reason='Account age less than 15 minutes')
-            await gchannel.send(f'<@{member.id}> has been kicked for having an account less than 15 minutes old.')
-        else:
+
+    if age_minutes < 15:
+        await member.kick(reason='Account age less than 15 minutes')
+        if isinstance(kick_channel, discord.TextChannel):
+            await kick_channel.send(f'<@{member.id}> has been kicked for having an account less than 15 minutes old.')
+    else:
+        if isinstance(gchannel, discord.TextChannel):
             await gchannel.send(f'Welcome {member.mention} to the server! {role.mention}s assemble!')
 
 
@@ -67,7 +71,10 @@ async def main():
     for cog in cogs:
         await client.load_extension(cog)
 
-    await client.start(TOKEN)
+    if TOKEN is not None:
+        await client.start(TOKEN)
+    else:
+        raise ValueError('No token found. Please set the BARISTA_BOT_TOKEN environment variable.')
 
 # Run the main function
 asyncio.run(main())

@@ -88,5 +88,5 @@ async def on_ready():
 # Run the main function
 asyncio.run(main())
 
-if __name__ == '__main__':
-    client.run(TOKEN)
+# if __name__ == '__main__':
+#     client.run(TOKEN)

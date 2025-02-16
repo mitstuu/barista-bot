@@ -36,7 +36,7 @@ ids: dict[str, int] = {
 }
 
 # @Welcomers role ID
-ROLE_ID = 934288548474007576
+WELCOMER_ROLE_ID = 934288548474007576
 
 # Listen for the on_member_join event
 @client.event
@@ -44,7 +44,7 @@ async def on_member_join(member):
     age_minutes = (datetime.now(timezone.utc) - member.created_at).total_seconds() // 60
     gchannel = client.get_channel(ids['general_channel'])
     kick_channel = client.get_channel(ids['modlogs_channel'])
-    role = member.guild.get_role(ROLE_ID)
+    welcome_role = member.guild.get_role(WELCOMER_ROLE_ID)
 
     if age_minutes < 15:
         await member.kick(reason='Account age less than 15 minutes')
@@ -52,7 +52,7 @@ async def on_member_join(member):
             await kick_channel.send(f'<@{member.id}> has been kicked for having an account less than 15 minutes old.')
     else:
         if isinstance(gchannel, discord.TextChannel):
-            await gchannel.send(f'Welcome {member.mention} to the server! {role.mention}s assemble!')
+            await gchannel.send(f'Welcome {member.mention} to the server! {welcome_role.mention}s assemble!')
 
 
 # # Define the help command

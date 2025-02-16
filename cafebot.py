@@ -25,6 +25,8 @@ TOKEN = os.environ['BARISTA_BOT_TOKEN']
 @client.event
 async def on_ready():
     await client.change_presence(activity=Game(name="with the API"))
+    cafeguild = client.get_guild(934288548474007572)
+    await client.tree.sync(guild=cafeguild)  # sync slash commands with Discord
 
 # bonk_CHANNEL_ID = 934288549946216541
 # general_CHANNEL_ID = 934288549266739224

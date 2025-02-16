@@ -68,6 +68,10 @@ async def on_member_join(member):
 #     embed.set_footer(text="Sent:")
 #     await ctx.send(embed=embed)
 
+# Define the slash command for ping (latency):
+@client.tree.command(name="ping", description="Displays the bot's current latency")
+async def slash_command(interaction: discord.Interaction):
+    await interaction.response.send_message(f"Pong! {round(client.latency * 1000)}ms")
 
 async def main():
     for cog in cogs:

@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime, timezone, timedelta
 from typing import Union
-from discord import Game
+from discord import Client, Game
 import math
 from discord import app_commands
 #from discord.ext import menus
@@ -32,9 +32,9 @@ class UserCommands(commands.Cog):
     #     await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
 
     # New slash command replacing b!ping:
-    @app_commands.command(name="ping", description="Get the bot's latency")
-    async def ping_slash(self, interaction: discord.Interaction):
-        await interaction.response.send_message(f'Pong! Latency: {round(self.bot.latency * 1000)} ms')
+    # @app_commands.command(name="ping", description="Get the bot's latency")
+    # async def ping_slash(self, interaction: discord.Interaction):
+    #     await interaction.response.send_message(f'Pong! Latency: {round(self.bot.latency * 1000)} ms')
 
     @commands.command(name='serverinfo')
     async def server_info(self, ctx):

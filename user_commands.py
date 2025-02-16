@@ -17,8 +17,8 @@ class UserCommands(commands.Cog):
         'chat_reviver'      :   934288548474007577,
         }
 
-    async def cog_load(self):
-        self.bot.tree.add_command(self.ping_slash)
+    # async def cog_load(self):
+    #     self.bot.tree.add_command(self.ping_slash)
 
     @commands.command()
     async def hello(self, ctx):

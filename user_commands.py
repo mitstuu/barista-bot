@@ -4,6 +4,7 @@ from datetime import datetime, timezone, timedelta
 from typing import Union
 from discord import Game
 import math
+from discord import app_commands
 #from discord.ext import menus
 
 class UserCommands(commands.Cog):
@@ -21,11 +22,16 @@ class UserCommands(commands.Cog):
         """ Say hello to the bot """
         await ctx.send("Hello, user!")
 
-    # Define the ping command
-    @commands.command()
-    async def ping(self, ctx):
-        """ Get the bot's latency """
-        await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
+    # Existing text command can be removed or kept for fallback:
+    # @commands.command()
+    # async def ping(self, ctx):
+    #     """Get the bot's latency"""
+    #     await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
+
+    # New slash command replacing b!ping:
+    @app_commands.command(name="ping", description="Get the bot's latency")
+    async def ping_slash(self, interaction: discord.Interaction):
+        await interaction.response.send_message(f'Pong! Latency: {round(self.bot.latency * 1000)} ms')
 
     @commands.command(name='serverinfo')
     async def server_info(self, ctx):
@@ -123,5 +129,5 @@ class UserCommands(commands.Cog):
 
 
 
-async def setup(client):
+async def setup(client: commands.Bot):
     await client.add_cog(UserCommands(client))

@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from datetime import datetime, timezone, timedelta
 from typing import Union
-from discord import Client, Game
+from discord import Client, Game, Guild
 import math
 from discord import app_commands
 #from discord.ext import menus
@@ -26,11 +26,10 @@ class UserCommands(commands.Cog):
         await ctx.send("Hello, user!")
 
     # Existing text command can be removed or kept for fallback:
-    @commands.hybrid_command()
+    @commands.hybrid_command(guilds=[discord.Object(id=934288548474007572)])
     async def ping(self, ctx):
         """Get the bot's latency"""
         await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
-
 
     @commands.command(name='serverinfo')
     async def server_info(self, ctx):

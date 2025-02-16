@@ -82,6 +82,7 @@ async def main():
 async def on_ready():
     await client.change_presence(activity=Game(name="with the API"))
     cafeguild = client.get_guild(934288548474007572)
+    client.tree.clear_commands(guild=cafeguild)
     await client.tree.sync(guild=cafeguild)  # sync slash commands with Discord
 
 # Run the main function

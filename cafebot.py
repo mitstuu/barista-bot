@@ -84,6 +84,12 @@ async def on_ready():
     cafeguild = client.get_guild(934288548474007572)
     client.tree.clear_commands(guild=cafeguild)
     await client.tree.sync(guild=cafeguild)  # sync slash commands with Discord
+    synced = await client.tree.sync(guild=cafeguild)
+    print("Slash commands registered:", [c.name for c in client.tree.get_commands(guild=cafeguild)])
+    if client.user is not None:
+        print(f'Logged in as {client.user} (ID: {client.user.id})')
+    else:
+        print("Logged in as None, client.user is not available yet.")
 
 # Run the main function
 asyncio.run(main())

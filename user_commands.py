@@ -26,15 +26,11 @@ class UserCommands(commands.Cog):
         await ctx.send("Hello, user!")
 
     # Existing text command can be removed or kept for fallback:
-    # @commands.command()
-    # async def ping(self, ctx):
-    #     """Get the bot's latency"""
-    #     await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
+    @commands.hybrid_command()
+    async def ping(self, ctx):
+        """Get the bot's latency"""
+        await ctx.send(f'Pong! Latency: `{round(self.bot.latency * 1000)}ms`')
 
-    # New slash command replacing b!ping:
-    # @app_commands.command(name="ping", description="Get the bot's latency")
-    # async def ping_slash(self, interaction: discord.Interaction):
-    #     await interaction.response.send_message(f'Pong! Latency: {round(self.bot.latency * 1000)} ms')
 
     @commands.command(name='serverinfo')
     async def server_info(self, ctx):

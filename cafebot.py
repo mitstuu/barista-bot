@@ -22,11 +22,11 @@ TOKEN = os.getenv('BARISTA_BOT_TOKEN')
 # Replace TOKEN with your bot's token
 TOKEN = os.environ['BARISTA_BOT_TOKEN']
 
-@client.event
-async def on_ready():
-    await client.change_presence(activity=Game(name="with the API"))
-    cafeguild = client.get_guild(934288548474007572)
-    await client.tree.sync(guild=cafeguild)  # sync slash commands with Discord
+# @client.event
+# async def on_ready():
+#     await client.change_presence(activity=Game(name="with the API"))
+#     cafeguild = client.get_guild(934288548474007572)
+#     await client.tree.sync(guild=cafeguild)  # sync slash commands with Discord
 
 # bonk_CHANNEL_ID = 934288549946216541
 # general_CHANNEL_ID = 934288549266739224
@@ -77,6 +77,12 @@ async def main():
         await client.start(TOKEN)
     else:
         raise ValueError('No token found. Please set the BARISTA_BOT_TOKEN environment variable.')
+    
+@client.event
+async def on_ready():
+    await client.change_presence(activity=Game(name="with the API"))
+    cafeguild = client.get_guild(934288548474007572)
+    await client.tree.sync(guild=cafeguild)  # sync slash commands with Discord
 
 # Run the main function
 asyncio.run(main())
